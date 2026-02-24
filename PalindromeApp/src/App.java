@@ -1,26 +1,54 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+/**
+ * =============================================================================
+ * MAIN CLASS - UseCase6PalindromeCheckerApp
+ * =============================================================================
+ * * Use Case 6: Queue + Stack Fairness Check
+ * * Description:
+ * This class demonstrates palindrome validation using
+ * two different data structures to show FIFO vs LIFO behaviors.
+ * * At this stage, the application:
+ * - Enqueues characters into a Queue (FIFO)
+ * - Pushes characters into a Stack (LIFO)
+ * - Compares dequeue vs pop outputs
+ * * If all characters match, the input is a palindrome.
+ * * @author Developer
+ * @version 6.0
+ */
 public class App {
 
     /**
-     * Application entry point for UC2.
-     * @param args Command-line arguments
+     * Application entry point for UC6.
+     * * @param args Command-line arguments
      */
     public static void main(String[] args) {
 
-        // Hardcoded string
-        String input = "madam";
+        String input = "civic";
+
+        Queue<Character> queue = new LinkedList<>();
+
+
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : input.toCharArray()) {
+            queue.add(c);
+            stack.push(c);
+        }
 
         boolean isPalindrome = true;
 
-        // Loop only till half of the string length
-        for (int i = 0; i < input.length() / 2; i++) {
-            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
+        while (!queue.isEmpty()) {
+            if (!queue.remove().equals(stack.pop())) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        // Display result
-        System.out.println("Input text: " + input);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+        //  Display results
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + isPalindrome);
     }
 }
