@@ -1,26 +1,63 @@
-public class App {
+import java.util.*;
 
-    /**
-     * Application entry point for UC2.
-     * @param args Command-line arguments
-     */
-    public static void main(String[] args) {
+/**
+ * =============================================================================
+ * STRATEGY INTERFACE
+ * =============================================================================
+ */
+interface PalindromeStrategy {
+    boolean isValid(String input);
+}
 
-        // Hardcoded string
-        String input = "madam";
-
-        boolean isPalindrome = true;
-
-        // Loop only till half of the string length
-        for (int i = 0; i < input.length() / 2; i++) {
-            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
+/**
+ * STRATEGY 1: Stack-Based
+ */
+class StackStrategy implements PalindromeStrategy {
+    public boolean isValid(String input) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : input.toCharArray()) stack.push(c);
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) return false;
         }
+        return true;
+    }
+}
 
-        // Display result
-        System.out.println("Input text: " + input);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+/**
+ * STRATEGY 2: Two-Pointer / Array-Based
+ */
+class ArrayStrategy implements PalindromeStrategy {
+    public boolean isValid(String input) {
+        int start = 0, end = input.length() - 1;
+        while (start < end) {
+            if (input.charAt(start++) != input.charAt(end--)) return false;
+        }
+        return true;
+    }
+}
+
+/**
+ * =============================================================================
+ * MAIN CLASS - UseCase12PalindromeCheckerApp
+ * =============================================================================
+ * * Use Case 12: Strategy Pattern (Advanced)
+ * * Description: Demonstrates switching algorithms dynamically at runtime.
+ * * @author ameya131
+ * @version 12.0
+ */
+public class App {
+    public static void main(String[] args) {
+        String word = "kayak";
+
+        // Context decides which strategy to use at runtime
+        PalindromeStrategy strategy;
+
+        // Using Stack Strategy
+        strategy = new StackStrategy();
+        System.out.println("Using Stack: " + strategy.isValid(word));
+
+        // Switching to Array Strategy dynamically
+        strategy = new ArrayStrategy();
+        System.out.println("Using Array: " + strategy.isValid(word));
     }
 }
