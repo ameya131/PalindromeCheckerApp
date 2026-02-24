@@ -1,26 +1,61 @@
-public class App {
+/**
+ * =============================================================================
+ * SERVICE CLASS - PalindromeService
+ * =============================================================================
+ * Encapsulates the core logic for palindrome validation.
+ */
+class PalindromeService {
 
     /**
-     * Application entry point for UC2.
-     * @param args Command-line arguments
+     * Checks if a string is a palindrome.
+     * This method is reusable by any part of the application.
      */
-    public static void main(String[] args) {
-
-        // Hardcoded string
-        String input = "madam";
-
-        boolean isPalindrome = true;
-
-        // Loop only till half of the string length
-        for (int i = 0; i < input.length() / 2; i++) {
-            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
+    public boolean check(String input) {
+        if (input == null || input.isEmpty()) {
+            return false;
         }
 
-        // Display result
-        System.out.println("Input text: " + input);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+        // Normalize string (handling case and non-alphanumeric characters)
+        String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        int start = 0;
+        int end = clean.length() - 1;
+
+        while (start < end) {
+            if (clean.charAt(start) != clean.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+}
+
+/**
+ * =============================================================================
+ * MAIN CLASS - UseCase11PalindromeCheckerApp
+ * =============================================================================
+ * * Use Case 11: Object-Oriented Palindrome Service
+ * * Description:
+ * This class demonstrates Encapsulation by delegating logic
+ * to a separate service class.
+ * * @author ameya131
+ * @version 11.0
+ */
+public class App {
+
+    public static void main(String[] args) {
+        // Instantiate the service object
+        PalindromeService service = new PalindromeService();
+
+        String testString = "Race Car";
+
+        // Use the service to check the palindrome
+        boolean result = service.check(testString);
+
+        // Display results
+        System.out.println("Input        : " + testString);
+        System.out.println("Is Palindrome: " + result);
     }
 }
