@@ -1,26 +1,55 @@
+/**
+ * =============================================================================
+ * MAIN CLASS - UseCase10PalindromeCheckerApp
+ * =============================================================================
+ * * Use Case 10: Case-Insensitive & Space-Ignored Palindrome
+ * * Description:
+ * This class handles real-world sentences by ignoring case and removing
+ * spaces/special characters before performing the palindrome check.
+ * * At this stage, the application:
+ * - Normalizes input using Regular Expressions (Regex)
+ * - Converts all characters to lowercase
+ * - Performs validation on the "cleaned" string
+ * * @author ameya131
+ * @version 10.0
+ */
 public class App {
 
     /**
-     * Application entry point for UC2.
-     * @param args Command-line arguments
+     * Application entry point for UC10.
+     * * @param args Command-line arguments
      */
     public static void main(String[] args) {
+        // Define the input string with spaces and mixed case
+        String input = "A man a plan a canal Panama";
 
-        // Hardcoded string
-        String input = "madam";
+        // Normalize the string:
+        // 1. Replace all non-alphanumeric characters with an empty string
+        // 2. Convert the result to lowercase
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        boolean isPalindrome = true;
+        boolean isPalindrome = checkPalindrome(normalized);
 
-        // Loop only till half of the string length
-        for (int i = 0; i < input.length() / 2; i++) {
-            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
+        // Display the results
+        System.out.println("Original Input : " + input);
+        System.out.println("Normalized     : " + normalized);
+        System.out.println("Is Palindrome? : " + isPalindrome);
+    }
+
+    /**
+     * Standard two-pointer validation logic
+     */
+    private static boolean checkPalindrome(String str) {
+        int left = 0;
+        int right = str.length() - 1;
+
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
             }
+            left++;
+            right--;
         }
-
-        // Display result
-        System.out.println("Input text: " + input);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+        return true;
     }
 }
