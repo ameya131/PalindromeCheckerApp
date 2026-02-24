@@ -1,26 +1,58 @@
+/**
+ * ======================================================
+ * MAIN CLASS - UseCase3PalindromeCheckerApp
+ * ======================================================
+ *
+ * Use Case 3: Reverse String Based Palindrome Check
+ *
+ * Description:
+ * This class checks whether a string is a palindrome
+ * by reversing the string and comparing it with
+ * the original value.
+ *
+ * At this stage, the application:
+ * - Iterates the string in reverse order
+ * - Builds a reversed version
+ * - Compares original and reversed strings
+ * - Displays the validation result
+ *
+ * This introduces transformation-based validation.
+ *
+ * @author ameya131
+ * @version 3.0
+ */
+
+import java.util.Scanner;
+
 public class App {
 
     /**
-     * Application entry point for UC2.
+     * Application entry point for UC3.
+     *
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
 
-        // Hardcoded string
-        String input = "madam";
+        Scanner scanner = new Scanner(System.in);
 
-        boolean isPalindrome = true;
+        // Accept input from user
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
 
-        // Loop only till half of the string length
-        for (int i = 0; i < input.length() / 2; i++) {
-            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
+        String reversed = "";
+
+        // Iterate from the last character to the first
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed = reversed + input.charAt(i);
         }
 
-        // Display result
-        System.out.println("Input text: " + input);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+        // Compare original and reversed string
+        if (input.equals(reversed)) {
+            System.out.println("Result: The string is a palindrome.");
+        } else {
+            System.out.println("Result: The string is NOT a palindrome.");
+        }
+
+        scanner.close();
     }
 }
